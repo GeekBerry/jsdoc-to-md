@@ -5,6 +5,10 @@
   "license": "MIT",
   "private": false,
   "repository": "https://github.com/GeekBerry/jsdoc-to-md.git",
+  "keywords": [
+    "jsdoc",
+    "markdown"
+  ],
   "main": "src/index.js",
   "files": [
     "src"

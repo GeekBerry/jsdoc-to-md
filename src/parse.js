@@ -5,9 +5,9 @@ const jsdocApi = require('jsdoc-api');
 const jsdocParse = require('jsdoc-parse');
 
 /**
- * @param path {string}
- * @param stack {array}
- * @return {[{ filename:string, stack:[string]}, ...]}
+ * @param path {string} - Filename or directory path
+ * @param [stack=[]] {array} - Relative path to root dir
+ * @return {object[]}
  */
 function listPath(path, stack = []) {
   const list = [];
@@ -68,8 +68,8 @@ function parseJsDoc(path, filter = () => true) {
       }
 
       info.id = `${stack.join('/')}/${info.name}`;
-      // delete info.meta;
-      // delete info.order;
+      delete info.meta;
+      delete info.order;
 
       // merge to one object
       switch (info.scope) {

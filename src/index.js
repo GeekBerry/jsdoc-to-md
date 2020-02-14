@@ -15,6 +15,19 @@ function stringifyContents(contents, deep = 0) {
   return lines.join('\n');
 }
 
+/**
+ * Generate directory markdown string.
+ *
+ * @param path {string} - - Filename or directory path
+ * @param [options] {object}
+ * @param [options.content=true] {boolean} - Generate content.
+ * @param [options.filter=()=>true] {function} - Filename filter/
+ * @return {string} Markdown string
+ *
+ * @example
+ * > const jsdocToMd = require('@geekberry/jsdoc-to-md')
+ * > const string = jsdocToMd('./src')
+ */
 function jsdocToMd(path, {
   content = true,
   filter = () => true,
