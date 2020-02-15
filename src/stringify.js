@@ -19,11 +19,10 @@ function formatText(text = '') {
 
 // ----------------------------------------------------------------------------
 function formatDescription(description) {
-  const text = formatText(description);
-  return text ? text : '*no description*';
+  return formatText(description);
 }
 
-function formatParams(params) {
+function formatParams(params = []) {
   const items = params.map(p => {
     return {
       Name: formatParamName(p.name, p.variable),

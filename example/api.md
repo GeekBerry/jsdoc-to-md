@@ -19,12 +19,10 @@ It is a example to gen markdown string by jsdoc.
 ----------------------------------------
 
 ## Class <a id="class.js/Class"></a>
-*class.js/Class*
 
 Class description
 
 ## Class.func <a id="class.js/func"></a>
-*class.js/func*
 
 Static function description
 > NOTE: method note
@@ -37,7 +35,6 @@ arg     | `number` | true     |         |
 options | `object` | true     |         |
 
 ## Class.prototype.constructor <a id="class.js/constructor"></a>
-*class.js/constructor*
 
 *no description*
 
@@ -64,14 +61,12 @@ options.str | `string` | false    | ''      | String argument
 ```
 
 ## Class.prototype.num <a id="class.js/num"></a>
-*class.js/num*
 
 `number`
 
 Instance attribute description
 
 ## Class.prototype.attr (getter) <a id="class.js/attr (getter)"></a>
-*class.js/attr (getter)*
 
 Attribute getter
 
@@ -87,7 +82,6 @@ Attribute getter
 ```
 
 ## Class.prototype.attr (setter) <a id="class.js/attr (setter)"></a>
-*class.js/attr (setter)*
 
 Attribute setter
 
@@ -104,7 +98,6 @@ value | `string` | true     |         |
 ```
 
 ## Class.prototype.method <a id="class.js/method"></a>
-*class.js/method*
 
 Method description
 
@@ -131,7 +124,6 @@ Name    | Type             | Required | Default | Description
 ```
 
 ## Class.prototype._asyncMethod <a id="class.js/_asyncMethod"></a>
-*class.js/_asyncMethod*
 
 Async method description
 
@@ -149,12 +141,10 @@ arg     | `number`         | true     |         | Arg description
 ----------------------------------------
 
 ## DirClass <a id="dir/class.js/DirClass"></a>
-*dir/class.js/DirClass*
 
 DirClass description
 
 ## DirClass.prototype.constructor <a id="dir/class.js/constructor"></a>
-*dir/class.js/constructor*
 
 DirClass constructor description
 
@@ -180,12 +170,10 @@ options.str | `string` | false    | ''      | String argument
 ----------------------------------------
 
 ## DirClass.DirMemberClass <a id="dir/class.js/DirClass.DirMemberClass"></a>
-*dir/class.js/DirClass.DirMemberClass*
 
 DirMemberClass description
 
 ## ~~DirClass.DirMemberClass.member~~ <a id="dir/class.js/member"></a>
-*dir/class.js/member*
 
 DirMemberClass static member
 
@@ -196,14 +184,12 @@ DirMemberClass static member
 > StaticError
 
 ## DirClass.DirMemberClass.prototype.member <a id="dir/class.js/member"></a>
-*dir/class.js/member*
 
 DirMemberClass instance member
 
 ----------------------------------------
 
 ## value <a id="dir/func.js/value"></a>
-*dir/func.js/value*
 
 `string`
 
@@ -212,7 +198,6 @@ Value description
 ----------------------------------------
 
 ## constant <a id="dir/func.js/constant"></a>
-*dir/func.js/constant*
 
 `number`
 
@@ -228,7 +213,6 @@ Constant description
 ----------------------------------------
 
 ## ~~funcA~~ <a id="dir/func.js/funcA"></a>
-*dir/func.js/funcA*
 
 Func A description
   first line of description
@@ -277,14 +261,12 @@ arg     | `number`         | true     |         | Arg description
 ----------------------------------------
 
 ## funcB <a id="dir/func.js/funcB"></a>
-*dir/func.js/funcB*
 
 *no description*
 
 ----------------------------------------
 
 ## ~~funcD~~ <a id="dir/func.js/funcD"></a>
-*dir/func.js/funcD*
 
 Func D description
 
@@ -295,7 +277,6 @@ Func D description
 ----------------------------------------
 
 ## X.funcXB <a id="dir/func.js/funcXB"></a>
-*dir/func.js/funcXB*
 
 Func X.B description
 

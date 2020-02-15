@@ -1,6 +1,6 @@
 const lodash = require('lodash');
+const parseJsDoc = require('./parse');
 const { stringifyInfo } = require('./stringify');
-const { parseJsDoc } = require('./parse');
 
 function stringifyContents(contents, deep = 0) {
   const lines = [];
@@ -18,7 +18,7 @@ function stringifyContents(contents, deep = 0) {
 /**
  * Generate directory markdown string.
  *
- * @param path {string} - - Filename or directory path
+ * @param path {string} - Filename or directory path
  * @param [options] {object}
  * @param [options.content=true] {boolean} - Generate content.
  * @param [options.filter=()=>true] {function} - Filename filter/

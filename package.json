@@ -17,5 +17,8 @@
     "jsdoc-api": "^5.0.4",
     "jsdoc-parse": "^4.0.1",
     "lodash": "^4.17.15"
+  },
+  "scripts": {
+    "public": "yarn publish --access=public"
   }
 }

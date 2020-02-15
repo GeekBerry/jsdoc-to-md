@@ -42,7 +42,7 @@ function parseJsDoc(path, filter = () => true) {
 
     array.forEach(info => {
       if (info.access && info.access !== 'public') {
-        return; // TODO optional
+        return;
       }
 
       // reset some relation
@@ -56,10 +56,15 @@ function parseJsDoc(path, filter = () => true) {
           info.name = `${info.memberof}.${info.name}`;
         }
       } else if (info.kind === 'member') {
-        if (info.params && info.params.length) {
+        const paramsLength = lodash.get(info, ['params', 'length']);
+        const returnsLength = lodash.get(info, ['returns', 'length']);
+
+        if (paramsLength && returnsLength) {
+          info.kind = 'function';
+        } else if (paramsLength) {
           info.kind = 'function';
           info.name = `${info.name} (setter)`;
-        } else if (info.returns && info.returns.length) {
+        } else if (returnsLength) {
           info.kind = 'function';
           info.name = `${info.name} (getter)`;
         }
@@ -95,6 +100,4 @@ function parseJsDoc(path, filter = () => true) {
   return object;
 }
 
-module.exports = {
-  parseJsDoc,
-};
+module.exports = parseJsDoc;
