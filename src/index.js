@@ -1,3 +1,4 @@
+const os = require('os');
 const lodash = require('lodash');
 const parseJsDoc = require('./parse');
 const { stringifyInfo } = require('./stringify');
@@ -12,7 +13,7 @@ function stringifyContents(contents, deep = 0) {
       lines.push(`${lodash.repeat('    ', deep)}- [${name}](#${value})`);
     }
   });
-  return lines.join('\n');
+  return lines.join(os.EOL);
 }
 
 /**
@@ -46,7 +47,7 @@ function jsdocToMd(path, {
   return [
     content ? stringifyContents(contents) : '',
     ...lines,
-  ].filter(Boolean).join('\n\n----------------------------------------\n\n');
+  ].filter(Boolean).join(`${os.EOL}${os.EOL}----------------------------------------${os.EOL}${os.EOL}`);
 }
 
 module.exports = jsdocToMd;

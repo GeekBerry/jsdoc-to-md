@@ -1,3 +1,4 @@
+const os = require('os');
 const { itemsToMarkdown } = require('./util');
 
 function formatParamName(name, variable = false) {
@@ -14,7 +15,7 @@ function formatType(type = { names: [] }) {
 }
 
 function formatText(text = '') {
-  return text.replace(/\n/g, '').replace(/\r/g, '\n');
+  return text.replace(/\n/g, '').replace(/\r/g, os.EOL);
 }
 
 // ----------------------------------------------------------------------------
@@ -35,25 +36,25 @@ function formatParams(params = []) {
 
   const text = formatItems(items);
 
-  return text ? ['* **Parameters**', text].join('\n\n') : '';
+  return text ? ['* **Parameters**', text].join(`${os.EOL}${os.EOL}`) : '';
 }
 
 function formatReturns(returns = []) {
-  const text = returns.map(r => `${formatType(r.type)} ${formatText(r.description)}`).join('\n\n');
+  const text = returns.map(r => `${formatType(r.type)} ${formatText(r.description)}`).join(`${os.EOL}${os.EOL}`);
 
-  return text ? ['* **Returns**', text].join('\n\n') : '';
+  return text ? ['* **Returns**', text].join(`${os.EOL}${os.EOL}`) : '';
 }
 
 function formatExceptions(exceptions = []) {
-  const text = exceptions.map(e => `> ${e.description}`).join('\n\n');
+  const text = exceptions.map(e => `> ${e.description}`).join(`${os.EOL}${os.EOL}`);
 
-  return text ? ['* **Exceptions**', text].join('\n\n') : '';
+  return text ? ['* **Exceptions**', text].join(`${os.EOL}${os.EOL}`) : '';
 }
 
 function formatExamples(examples = []) {
-  const text = examples.map(line => '```\n' + formatText(line) + '\n```').join('\n\n');
+  const text = examples.map(line => '```' + os.EOL + formatText(line) + os.EOL + '```').join(`${os.EOL}${os.EOL}`);
 
-  return text ? ['* **Examples**', text].join('\n\n') : '';
+  return text ? ['* **Examples**', text].join(`${os.EOL}${os.EOL}`) : '';
 }
 
 // ============================================================================
@@ -74,7 +75,7 @@ function stringifyFunction(info) {
     formatExceptions(info.exceptions),
     formatReturns(info.returns),
     formatExamples(info.examples),
-  ].filter(Boolean).join('\n\n');
+  ].filter(Boolean).join(`${os.EOL}${os.EOL}`);
 }
 
 function stringifyMember(info) {
@@ -83,7 +84,7 @@ function stringifyMember(info) {
     formatType(info.type),
     formatDescription(info.description),
     formatExamples(info.examples),
-  ].filter(Boolean).join('\n\n');
+  ].filter(Boolean).join(`${os.EOL}${os.EOL}`);
 }
 
 function stringifyClass(info) {
@@ -92,11 +93,11 @@ function stringifyClass(info) {
     formatDescription(info.description),
     ...Object.values(info.static || {}).map(stringifyInfo),
     ...Object.values(info.instance || {}).map(stringifyInfo),
-  ].join('\n\n');
+  ].join(`${os.EOL}${os.EOL}`);
 }
 
 function stringifyModule(info) {
-  return Object.values(info.static || {}).map(stringifyInfo).join('\n\n');
+  return Object.values(info.static || {}).map(stringifyInfo).join(`${os.EOL}${os.EOL}`);
 }
 
 function stringifyInfo(info) {

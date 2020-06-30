@@ -1,3 +1,4 @@
+const os = require('os');
 const lodash = require('lodash');
 
 function stringWidth(string) {
@@ -52,7 +53,7 @@ function linesToMarkdown(lines) {
 
   const separator = lodash.values(widthMap).map(width => lodash.repeat('-', width)).join('-|-');
 
-  return [lodash.head(rows), separator, ...lodash.tail(rows)].join('\n');
+  return [lodash.head(rows), separator, ...lodash.tail(rows)].join(os.EOL);
 }
 
 /**

@@ -36,8 +36,6 @@ options | `object` | true     |         |
 
 ## Class.prototype.constructor <a id="class.js/constructor"></a>
 
-*no description*
-
 * **Parameters**
 
 Name        | Type     | Required | Default | Description
@@ -261,8 +259,6 @@ arg     | `number`         | true     |         | Arg description
 ----------------------------------------
 
 ## funcB <a id="dir/func.js/funcB"></a>
-
-*no description*
 
 ----------------------------------------
 
