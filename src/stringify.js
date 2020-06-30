@@ -15,7 +15,7 @@ function formatType(type = { names: [] }) {
 }
 
 function formatText(text = '') {
-  return text.replace(/\n/g, '').replace(/\r/g, os.EOL);
+  return text.replace(/(\r\n|\r|\n)/g, os.EOL);
 }
 
 // ----------------------------------------------------------------------------
