@@ -1,4 +1,5 @@
 const os = require('os');
+const lodash = require('lodash');
 const { itemsToMarkdown } = require('./util');
 
 function formatParamName(name, variable = false) {
@@ -116,7 +117,21 @@ function stringifyInfo(info) {
   }
 }
 
+function stringifyContents(contents, deep = 0) {
+  const lines = [];
+  lodash.forEach(contents, (value, name) => {
+    if (lodash.isObject(value)) {
+      lines.push(`${lodash.repeat('    ', deep)}- ${name}`);
+      lines.push(stringifyContents(value, deep + 1));
+    } else {
+      lines.push(`${lodash.repeat('    ', deep)}- [${name}](#${value})`);
+    }
+  });
+  return lines.join(os.EOL);
+}
+
 // ----------------------------------------------------------------------------
 module.exports = {
   stringifyInfo,
+  stringifyContents,
 };

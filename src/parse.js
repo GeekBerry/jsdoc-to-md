@@ -23,6 +23,67 @@ function listPath(path, stack = []) {
   return list;
 }
 
+function translateInfo(info) {
+  switch (info.kind) {
+    case 'class':
+      if (info.scope !== 'global') { // sub class as global scope
+        info.scope = 'global';
+        info.name = `${info.memberof}.${info.name}`;
+        info.memberof = undefined;
+      }
+      break;
+
+    case 'constructor':
+      info.kind = 'function';
+      info.name = 'constructor';
+      info.scope = 'instance';
+      break;
+
+    case 'member':
+      const paramsLength = lodash.get(info, ['params', 'length']);
+      const returnsLength = lodash.get(info, ['returns', 'length']);
+
+      if (paramsLength && returnsLength) {
+        info.kind = 'function';
+      } else if (paramsLength) {
+        info.kind = 'function';
+        info.role = 'setter';
+      } else if (returnsLength) {
+        info.kind = 'function';
+        info.role = 'getter';
+      }
+      break;
+
+    case 'constant':
+      info.kind = 'member';
+      break;
+
+    case 'function':
+    default:
+      break;
+  }
+
+  switch (info.scope) {
+    case 'static':
+      info.longname = `${info.memberof}.${info.name}`;
+      break;
+
+    case 'instance':
+      info.longname = `${info.memberof}.prototype.${info.name}`;
+      break;
+
+    case 'global':
+    default:
+      info.longname = info.name;
+      break;
+  }
+
+  delete info.meta;
+  delete info.order;
+  delete info.thisvalue;
+  return info;
+}
+
 /**
  * Parse '.js' file jsdoc
  *
@@ -31,73 +92,45 @@ function listPath(path, stack = []) {
  * @return {object}
  */
 function parseJsDoc(path, filter = () => true) {
-  const object = {};
+  const idToInfo = {};
 
-  listPath(path).forEach(({ filename, stack }) => {
+  lodash.forEach(listPath(path), ({ filename, stack }) => {
     if (!filename.endsWith('.js') || !filter(filename)) {
       return undefined;
     }
 
     const array = jsdocParse(jsdocApi.explainSync({ files: filename }));
 
-    array.forEach(info => {
-      if (info.access && info.access !== 'public') {
-        return;
-      }
+    array
+      .filter(info => !['protected', 'private'].includes(info.access))
+      .map(translateInfo)
+      .forEach(info => {
+        const staticLabel = info.scope === 'static' ? '(static)' : '';
+        const roleLabel = info.role ? `(${info.role})` : '';
+        const name = `${staticLabel}${info.name}${roleLabel}`;
 
-      // reset some relation
-      if (info.kind === 'constructor') {
-        info.kind = 'function';
-        info.name = 'constructor';
-        info.scope = 'instance';
-      } else if (info.kind === 'class') {
-        if (info.scope === 'static') { // sub class as global scope
-          info.scope = 'global';
-          info.name = `${info.memberof}.${info.name}`;
+        info.stack = [...stack, info.memberof, name].filter(Boolean);
+        info.id = info.stack.join('/');
+
+        const parentId = [...stack, info.memberof].filter(Boolean).join('/');
+        switch (info.scope) {
+          case 'static':
+            lodash.set(idToInfo, [parentId, 'static', name], info);
+            break;
+
+          case 'instance':
+            lodash.set(idToInfo, [parentId, 'instance', name], info);
+            break;
+
+          case 'global':
+          default:
+            idToInfo[info.id] = { ...info, ...(idToInfo[info.id] || {}) };
+            break;
         }
-      } else if (info.kind === 'member') {
-        const paramsLength = lodash.get(info, ['params', 'length']);
-        const returnsLength = lodash.get(info, ['returns', 'length']);
-
-        if (paramsLength && returnsLength) {
-          info.kind = 'function';
-        } else if (paramsLength) {
-          info.kind = 'function';
-          info.name = `${info.name} (setter)`;
-        } else if (returnsLength) {
-          info.kind = 'function';
-          info.name = `${info.name} (getter)`;
-        }
-      } else if (info.kind === 'constant') {
-        info.kind = 'member';
-      }
-
-      info.id = `${stack.join('/')}/${info.name}`;
-      delete info.meta;
-      delete info.order;
-
-      // merge to one object
-      switch (info.scope) {
-        case 'static':
-          info.longname = `${info.memberof}.${info.name}`;
-          lodash.set(object, [`${stack.join('/')}/${info.memberof}`, 'static', info.name], info);
-          break;
-
-        case 'instance':
-          info.longname = `${info.memberof}.prototype.${info.name}`;
-          lodash.set(object, [`${stack.join('/')}/${info.memberof}`, 'instance', info.name], info);
-          break;
-
-        case 'global':
-        default:
-          info.longname = info.name;
-          object[info.id] = { ...info, ...(object[info.id] || {}) };
-          break;
-      }
-    });
+      });
   });
 
-  return object;
+  return idToInfo;
 }
 
 module.exports = parseJsDoc;

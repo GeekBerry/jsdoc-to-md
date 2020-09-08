@@ -14,8 +14,12 @@ class DirClass {
    * > new DirClass()
    * "DirClass"
    */
-  constructor(options) {
+  constructor(options) {}
 
+  /**
+   * DirClass instance member
+   */
+  member() {
   }
 }
 
@@ -33,6 +37,13 @@ class DirMemberClass {
    * @exception StaticError
    */
   static member() {
+
+  }
+
+  /**
+   * DirMemberClass constructor
+   */
+  constructor() {
 
   }
 

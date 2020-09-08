@@ -4,17 +4,31 @@
 It is a example to gen markdown string by jsdoc.
 
 - class.js
-    - [Class](#class.js/Class)
+    - Class
+        - [(static)func](#class.js/Class/(static)func)
+        - [constructor](#class.js/Class/constructor)
+        - [num](#class.js/Class/num)
+        - [attr(getter)](#class.js/Class/attr(getter))
+        - [attr(setter)](#class.js/Class/attr(setter))
+        - [method](#class.js/Class/method)
+        - [_asyncMethod](#class.js/Class/_asyncMethod)
 - dir
     - class.js
-        - [DirClass](#dir/class.js/DirClass)
-        - [DirClass.DirMemberClass](#dir/class.js/DirClass.DirMemberClass)
+        - DirClass
+            - [constructor](#dir/class.js/DirClass/constructor)
+            - [member](#dir/class.js/DirClass/member)
+        - DirClass.DirMemberClass
+            - [(static)member](#dir/class.js/DirClass.DirMemberClass/(static)member)
+            - [constructor](#dir/class.js/DirClass.DirMemberClass/constructor)
+            - [member](#dir/class.js/DirClass.DirMemberClass/member)
     - func.js
         - [value](#dir/func.js/value)
         - [constant](#dir/func.js/constant)
         - [funcA](#dir/func.js/funcA)
         - [funcB](#dir/func.js/funcB)
         - [funcD](#dir/func.js/funcD)
+        - X
+            - [(static)funcXB](#dir/func.js/X/(static)funcXB)
 
 ----------------------------------------
 
@@ -22,7 +36,7 @@ It is a example to gen markdown string by jsdoc.
 
 Class description
 
-## Class.func <a id="class.js/func"></a>
+## Class.func <a id="class.js/Class/(static)func"></a>
 
 Static function description
 > NOTE: method note
@@ -34,7 +48,7 @@ Name    | Type     | Required | Default | Description
 arg     | `number` | true     |         |
 options | `object` | true     |         |
 
-## Class.prototype.constructor <a id="class.js/constructor"></a>
+## Class.prototype.constructor <a id="class.js/Class/constructor"></a>
 
 * **Parameters**
 
@@ -58,13 +72,13 @@ options.str | `string` | false    | ''      | String argument
  "Class"
 ```
 
-## Class.prototype.num <a id="class.js/num"></a>
+## Class.prototype.num <a id="class.js/Class/num"></a>
 
 `number`
 
 Instance attribute description
 
-## Class.prototype.attr (getter) <a id="class.js/attr (getter)"></a>
+## Class.prototype.attr <a id="class.js/Class/attr(getter)"></a>
 
 Attribute getter
 
@@ -79,7 +93,7 @@ Attribute getter
 "xxx"
 ```
 
-## Class.prototype.attr (setter) <a id="class.js/attr (setter)"></a>
+## Class.prototype.attr <a id="class.js/Class/attr(setter)"></a>
 
 Attribute setter
 
@@ -95,7 +109,7 @@ value | `string` | true     |         |
 > cls.attr = "yyy"
 ```
 
-## Class.prototype.method <a id="class.js/method"></a>
+## Class.prototype.method <a id="class.js/Class/method"></a>
 
 Method description
 
@@ -121,7 +135,7 @@ Name    | Type             | Required | Default | Description
    10
 ```
 
-## Class.prototype._asyncMethod <a id="class.js/_asyncMethod"></a>
+## Class.prototype._asyncMethod <a id="class.js/Class/_asyncMethod"></a>
 
 Async method description
 
@@ -142,7 +156,7 @@ arg     | `number`         | true     |         | Arg description
 
 DirClass description
 
-## DirClass.prototype.constructor <a id="dir/class.js/constructor"></a>
+## DirClass.prototype.constructor <a id="dir/class.js/DirClass/constructor"></a>
 
 DirClass constructor description
 
@@ -165,13 +179,17 @@ options.str | `string` | false    | ''      | String argument
 "DirClass"
 ```
 
+## DirClass.prototype.member <a id="dir/class.js/DirClass/member"></a>
+
+DirClass instance member
+
 ----------------------------------------
 
 ## DirClass.DirMemberClass <a id="dir/class.js/DirClass.DirMemberClass"></a>
 
 DirMemberClass description
 
-## ~~DirClass.DirMemberClass.member~~ <a id="dir/class.js/member"></a>
+## ~~DirClass.DirMemberClass.member~~ <a id="dir/class.js/DirClass.DirMemberClass/(static)member"></a>
 
 DirMemberClass static member
 
@@ -181,7 +199,11 @@ DirMemberClass static member
 
 > StaticError
 
-## DirClass.DirMemberClass.prototype.member <a id="dir/class.js/member"></a>
+## DirClass.DirMemberClass.prototype.constructor <a id="dir/class.js/DirClass.DirMemberClass/constructor"></a>
+
+DirMemberClass constructor
+
+## DirClass.DirMemberClass.prototype.member <a id="dir/class.js/DirClass.DirMemberClass/member"></a>
 
 DirMemberClass instance member
 
@@ -272,7 +294,7 @@ Func D description
 
 ----------------------------------------
 
-## X.funcXB <a id="dir/func.js/funcXB"></a>
+## X.funcXB <a id="dir/func.js/X/(static)funcXB"></a>
 
 Func X.B description
 

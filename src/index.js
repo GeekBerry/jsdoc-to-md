@@ -1,20 +1,7 @@
 const os = require('os');
 const lodash = require('lodash');
 const parseJsDoc = require('./parse');
-const { stringifyInfo } = require('./stringify');
-
-function stringifyContents(contents, deep = 0) {
-  const lines = [];
-  Object.entries(contents).forEach(([name, value]) => {
-    if (lodash.isObject(value)) {
-      lines.push(`${lodash.repeat('    ', deep)}- ${name}`);
-      lines.push(stringifyContents(value, deep + 1));
-    } else {
-      lines.push(`${lodash.repeat('    ', deep)}- [${name}](#${value})`);
-    }
-  });
-  return lines.join(os.EOL);
-}
+const { stringifyInfo, stringifyContents } = require('./stringify');
 
 /**
  * Generate directory markdown string.
@@ -33,21 +20,30 @@ function jsdocToMd(path, {
   content = true,
   filter = () => true,
 } = {}) {
-  const object = parseJsDoc(path, filter);
+  let object = parseJsDoc(path, filter);
+
+  const lines = lodash.map(object, stringifyInfo);
 
   const contents = {};
-  const lines = [];
-  Object.entries(object).forEach(([key, info]) => {
+  lodash.forEach(object, info => {
     if (info.id) {
-      lodash.set(contents, info.id.split('/'), key);
+      lodash.set(contents, info.stack, info.id);
     }
-    lines.push(stringifyInfo(info));
+    lodash.forEach(info.static, (_info) => {
+      if (_info.id) {
+        lodash.set(contents, _info.stack, _info.id);
+      }
+    });
+    lodash.forEach(info.instance, (_info) => {
+      if (_info.id) {
+        lodash.set(contents, _info.stack, _info.id);
+      }
+    });
   });
 
-  return [
-    content ? stringifyContents(contents) : '',
-    ...lines,
-  ].filter(Boolean).join(`${os.EOL}${os.EOL}----------------------------------------${os.EOL}${os.EOL}`);
+  return [content ? stringifyContents(contents) : '', ...lines]
+    .filter(Boolean)
+    .join(`${os.EOL}${os.EOL}----------------------------------------${os.EOL}${os.EOL}`);
 }
 
 module.exports = jsdocToMd;

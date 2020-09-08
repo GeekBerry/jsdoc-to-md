@@ -9,7 +9,7 @@ const markdown = jsdocToMd('./src', {
   },
 });
 
-console.log(markdown);
+// console.log(markdown);
 
 // save as file with extra prefix and suffix
 fs.writeFileSync('./api.md', `
