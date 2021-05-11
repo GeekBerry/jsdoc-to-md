@@ -16,7 +16,7 @@
   "dependencies": {
     "jsdoc-api": "^6.0.0",
     "jsdoc-parse": "^5.0.0",
-    "lodash": "4.17.15"
+    "lodash": "4.17.21"
   },
   "scripts": {
     "public": "yarn publish --access=public"
